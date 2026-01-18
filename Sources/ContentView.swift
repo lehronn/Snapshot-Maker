@@ -62,6 +62,19 @@ struct ContentView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
+    
+    private func saveBookmark(for url: URL) {
+        do {
+            let data = try url.bookmarkData(options: .withSecurityScope,
+                                          includingResourceValuesForKeys: nil,
+                                          relativeTo: nil)
+            appState.scanPathBookmark = data
+            appState.scanPath = url.path
+            appState.scan()
+        } catch {
+            print("Failed to create bookmark: \(error)")
+        }
+    }
 }
 
 struct VMDetailView: View {
@@ -215,6 +228,9 @@ struct VMDetailView: View {
 }
 
 struct WelcomeView: View {
+    @EnvironmentObject var appState: AppState
+    @State private var showingFilePicker = false
+    
     var body: some View {
         VStack(spacing: 20) {
             Image(systemName: "desktopcomputer")
@@ -235,23 +251,39 @@ struct WelcomeView: View {
             Divider()
                 .frame(width: 300)
             
-            VStack(spacing: 8) {
-                Text("welcome_default_path_prefix".localized)
+            // Grant Access Button (Always visible)
+            VStack(spacing: 15) {
+                Label("grant_access_title".localized, systemImage: "key.fill")
                     .font(.headline)
+                    .foregroundColor(appState.scanPathBookmark.isEmpty ? .orange : .secondary)
                 
-                Text(AppConfig.defaultScanPath)
+                Text(appState.scanPathBookmark.isEmpty ? "grant_access_message".localized : "welcome_default_path_prefix".localized)
                     .font(.caption)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
-                    .padding(8)
-                    .background(Color.secondary.opacity(0.1))
-                    .cornerRadius(8)
-                    .textSelection(.enabled)
+                    .frame(maxWidth: 350)
                 
-                Text("welcome_settings_hint".localized)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .padding(.top, 4)
+                if !appState.scanPathBookmark.isEmpty {
+                     Text(appState.scanPath)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .padding(4)
+                        .background(Color.secondary.opacity(0.1))
+                        .cornerRadius(4)
+                }
+                
+                Button(action: { showingFilePicker = true }) {
+                    Text("grant_access_button".localized)
+                        .frame(minWidth: 150)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(appState.scanPathBookmark.isEmpty ? .orange : .accentColor)
             }
+            .padding()
+            .background(appState.scanPathBookmark.isEmpty ? Color.orange.opacity(0.1) : Color.clear)
+            .cornerRadius(12)
+            .padding(.vertical, 10)
             
             Spacer()
                 .frame(height: 20)
@@ -261,6 +293,32 @@ struct WelcomeView: View {
                 .foregroundColor(.secondary)
         }
         .padding()
+        .sheet(isPresented: $showingFilePicker) {
+            FilePickerView(selectedPath: .constant(""), 
+                         initialPath: AppConfig.defaultScanPath,
+                         onSelect: { url in
+                saveBookmark(for: url)
+            })
+        }
+    }
+    
+    private func saveBookmark(for url: URL) {
+        do {
+             let data = try url.bookmarkData(options: .withSecurityScope,
+                                           includingResourceValuesForKeys: nil,
+                                           relativeTo: nil)
+             // We need to update AppState, but WelcomeView is a child.
+             // Best way is to access AppState environment object.
+             // Since we are in a closure, we capture appState.
+             
+             // Note: In a real app we might want to move this logic to AppState or a parent,
+             // but here we can directly modify the EnvironmentObject.
+             appState.scanPathBookmark = data
+             appState.scanPath = url.path
+             appState.scan()
+        } catch {
+             print("Failed to create bookmark from WelcomeView: \(error)")
+        }
     }
 }
 

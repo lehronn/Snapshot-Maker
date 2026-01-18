@@ -4,7 +4,7 @@ set -e
 
 APP_NAME="SnapshotMaker"
 BUNDLE_ID="com.stomski.snapshotmaker"
-VERSION="1.0"
+VERSION="1.1.0"
 MIN_MACOS="13.0"
 
 # Colors for output
@@ -51,11 +51,38 @@ if [ "$UPDATE_QEMU" = true ]; then
     update_qemu
 fi
 
-# Check if Swift is available
-if ! command -v swift &> /dev/null; then
-    echo -e "${RED}❌ Swift compiler not found!${NC}"
-    echo "   Install Xcode Command Line Tools: xcode-select --install"
+# Check for required tools
+check_tool() {
+    if ! command -v $1 &> /dev/null; then
+        echo -e "${RED}❌ Error: '$1' command not found!${NC}"
+        echo "   $2"
+        exit 1
+    fi
+}
+
+echo "🔍 Checking dependencies..."
+
+# Check key build tools
+check_tool "git" "Install Git: brew install git (or install Xcode Command Line Tools)"
+check_tool "swift" "Install Xcode Command Line Tools: xcode-select --install"
+
+# Check if Xcode path is set
+if ! xcode-select -p &> /dev/null; then
+    echo -e "${RED}❌ Error: Xcode directory not found!${NC}"
+    echo "   Run: xcode-select --install"
+    echo "   Or reset it: sudo xcode-select --reset"
     exit 1
+fi
+
+# Check QEMU presence (informative only)
+if ! command -v qemu-img &> /dev/null; then
+    if [ ! -f "Resources/qemu-img" ]; then
+        echo -e "${YELLOW}⚠️  Warning: qemu-img not found on system and not embedded.${NC}"
+        echo "   The app requires QEMU to function."
+        echo "   Recommended: brew install qemu"
+        echo "   Or run build with: ./build_app.sh --update-qemu"
+        sleep 2
+    fi
 fi
 
 # Clean previous build
@@ -109,6 +136,7 @@ fi
 
 # Create Info.plist
 echo "   Creating Info.plist..."
+# Copy Info.plist to the bundle
 cat > ${APP_NAME}.app/Contents/Info.plist << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -141,6 +169,21 @@ cat > ${APP_NAME}.app/Contents/Info.plist << EOF
 </dict>
 </plist>
 EOF
+
+# Code Signing
+echo "🔐 Signing application..."
+if [ -f "Entitlements.plist" ]; then
+    codesign --force --options runtime --deep --sign - --entitlements Entitlements.plist ${APP_NAME}.app
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✅ Signed with entitlements (ad-hoc)${NC}"
+    else
+        echo -e "${RED}❌ Signing failed${NC}"
+        exit 1
+    fi
+else
+    echo -e "${YELLOW}⚠️  Entitlements.plist not found, signing without entitlements${NC}"
+    codesign --force --options runtime --deep --sign - ${APP_NAME}.app
+fi
 
 echo -e "${GREEN}✅ Build complete!${NC}"
 echo ""
