@@ -12,6 +12,8 @@
 "language_pl" = "Polonais";
 "language_de" = "Allemand";
 "language_fr" = "Français";
+"language_es" = "Espagnol";
+"language_it" = "Italien";
 
 /* Scan Settings */
 "scan_location" = "Emplacement de scan";
@@ -64,6 +66,9 @@
 "welcome_settings_hint" = "Vous pouvez configurer le chemin de scan des VM dans les Réglages.";
 "welcome_default_path_prefix" = "Emplacement de scan par défaut:";
 "welcome_footer" = "Des informations supplémentaires apparaîtront ici après avoir sélectionné une VM.";
+"grant_access_title" = "Permission requise";
+"grant_access_message" = "Snapshot Maker a besoin d'un accès permanent à votre dossier VM pour éviter de demander la permission à chaque lancement.";
+"grant_access_button" = "Accorder l'accès";
 
 /* Menu Items */
 "menu_about" = "À propos de Snapshot Maker";

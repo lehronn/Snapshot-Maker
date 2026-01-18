@@ -4,7 +4,7 @@ set -e
 
 APP_NAME="SnapshotMaker"
 DMG_NAME="SnapshotMaker"
-VERSION="1.0"
+VERSION="1.1.0"
 
 # Colors for output
 RED='\033[0;31m'
@@ -13,6 +13,13 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo "💿 Creating DMG for ${APP_NAME}..."
+
+# Check for required tools
+if ! command -v hdiutil &> /dev/null; then
+    echo -e "${RED}❌ Error: 'hdiutil' command not found!${NC}"
+    echo "   Are you running this on macOS?"
+    exit 1
+fi
 
 # Check if app exists
 if [ ! -d "${APP_NAME}.app" ]; then

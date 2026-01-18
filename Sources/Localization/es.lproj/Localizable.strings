@@ -1,0 +1,126 @@
+/* Application Name */
+"app_name" = "Snapshot Maker";
+
+/* UI Labels */
+"appearance_label" = "Apariencia";
+"appearance_system" = "Sistema";
+"appearance_light" = "Claro";
+"appearance_dark" = "Oscuro";
+"language_label" = "Idioma";
+"language_system" = "Predeterminado del sistema";
+"language_en" = "Inglés";
+"language_pl" = "Polaco";
+"language_de" = "Alemán";
+"language_fr" = "Francés";
+"language_es" = "Español";
+"language_it" = "Italiano";
+
+/* Scan Settings */
+"scan_location" = "Ubicación de escaneo";
+"scan_button" = "Escanear";
+"scan_path" = "Ruta de escaneo";
+"choose" = "Elegir...";
+
+/* VM List */
+"vm_list_title" = "Máquinas Virtuales";
+"select_vm" = "Seleccionar una Máquina Virtual";
+"path_label" = "Ruta";
+"disks_label" = "Discos";
+"open_in_finder" = "Abrir en Finder";
+
+/* Snapshots */
+"snapshots" = "Instantáneas";
+"no_snapshots" = "No se encontraron instantáneas. Crea una nueva usando el formulario de arriba.";
+"create_snapshot" = "Crear Instantánea";
+"delete_snapshot" = "Eliminar";
+"restore_snapshot" = "Restaurar";
+"snapshot_name_placeholder" = "Nombre de la instantánea";
+"created_at" = "Creada";
+"actions" = "Acciones";
+
+/* Messages */
+"error_title" = "Error";
+"success_title" = "Éxito";
+"ok_button" = "OK";
+"ok" = "OK";
+"cancel" = "Cancelar";
+
+/* Snapshot Operations */
+"snapshot_created_success" = "Instantánea creada exitosamente";
+"snapshot_deleted_success" = "Instantánea eliminada exitosamente";
+"snapshot_restored_success" = "Instantánea restaurada exitosamente";
+"snapshot_create_error" = "Error al crear la instantánea";
+"snapshot_delete_error" = "Error al eliminar la instantánea";
+"snapshot_restore_error" = "Error al restaurar la instantánea";
+
+/* Dependencies */
+"missing_dependencies_title" = "Falta qemu-img";
+"missing_dependencies_message" = "qemu-img no está instalado. Instale QEMU usando Homebrew: \n\nbrew install qemu\n\nO la aplicación usará el binario integrado (puede estar desactualizado).";
+"qemu_status_label" = "Estado de qemu-img";
+"qemu_status_system" = "Usando binario del sistema";
+"qemu_status_embedded" = "Usando binario integrado";
+"qemu_warning_message" = "⚠️ Estás usando el binario qemu-img integrado. Para mejores resultados, instala qemu vía Homebrew:\n\nbrew install qemu";
+
+/* Welcome Screen */
+"welcome_title" = "Bienvenido a Snapshot Maker";
+"welcome_message" = "Selecciona una máquina virtual de la barra lateral para ver detalles y gestionar instantáneas.";
+"welcome_settings_hint" = "Puedes configurar la ruta de escaneo de VM en la Configuración.";
+"welcome_default_path_prefix" = "Ubicación de escaneo predeterminada:";
+"welcome_footer" = "La información adicional aparecerá aquí después de seleccionar una VM.";
+"grant_access_title" = "Permiso Requerido";
+"grant_access_message" = "Snapshot Maker necesita acceso persistente a tu carpeta de VM para evitar pedir permiso en cada lanzamiento.";
+"grant_access_button" = "Conceder Acceso";
+
+/* Menu Items */
+"menu_about" = "Acerca de Snapshot Maker";
+"menu_documentation" = "Documentación";
+
+/* About Window */
+"about_version" = "Versión";
+"about_author" = "Autor";
+"about_license_button" = "Ver Licencia";
+"about_disclaimer" = "Este software es gratuito y de código abierto, proporcionado 'tal cual' sin ninguna garantía, bajo la Licencia MIT.\n\nCreado con asistencia de IA. No destinado para uso en producción. El autor no es responsable de ningún error.";
+"license_title" = "Licencia MIT";
+
+/* Config Viewer */
+"view_config" = "Ver Configuración";
+"config_title" = "Configuración";
+"loading_config" = "Cargando configuración...";
+"export_config" = "Exportar a Archivo";
+"config_export_success" = "Configuración exportada exitosamente.";
+
+/* Settings */
+"general_settings" = "General";
+"appearance_settings" = "Apariencia";
+
+/* Warnings */
+"warning_vm_running" = "⚠️ ADVERTENCIA: ¡Nunca crees, restaures o elimines instantáneas mientras una VM está en ejecución! Esto puede causar corrupción grave de datos.";
+"delete_confirm_title" = "Eliminar Instantánea";
+"delete_confirm_message" = "¿Estás seguro de que quieres eliminar la instantánea '%@'?";
+"restore_confirm_title" = "Restaurar Instantánea";
+"restore_confirm_message" = "¿Estás seguro de que quieres restaurar a la instantánea '%@'? Esto revertirá el disco a este estado.";
+
+/* Settings Descriptions */
+"settings_scan_desc" = "Ruta de escaneo";
+"settings_qemu_missing" = "¡qemu-img no encontrado!";
+"settings_qemu_missing_desc" = "Instala qemu vía Homebrew: brew install qemu";
+"settings_qemu_embedded" = "Usando versión integrada de qemu-img";
+"settings_qemu_embedded_desc" = "Para mejor compatibilidad, instala la última versión vía Homebrew: brew install qemu";
+"settings_qemu_system" = "Usando instalación de sistema de qemu-img";
+"settings_qemu_system_desc" = "Todo está configurado correctamente.";
+"settings_appearance_desc" = "Elige el tema de color de la aplicación";
+"settings_language_desc" = "Elige el idioma de la interfaz";
+"settings_tab_general" = "General";
+"settings_tab_appearance" = "Apariencia";
+
+/* Settings & Alerts */
+"settings_general_tab" = "General";
+"settings_appearance_tab" = "Apariencia";
+"settings_theme_label" = "Elige el tema de color de la aplicación";
+"settings_language_label" = "Elige el idioma de la interfaz";
+"qemu_status_missing_title" = "¡Falta qemu-img!";
+"qemu_status_missing_desc" = "Instala qemu vía Homebrew: brew install qemu";
+"qemu_status_embedded_title" = "Usando versión integrada de qemu-img";
+"qemu_status_embedded_desc" = "Para mejor compatibilidad instala la última versión vía Homebrew: brew install qemu.";
+"qemu_status_system_title" = "Usando instalación de sistema de qemu-img";
+"qemu_status_system_desc" = "Todo está configurado correctamente.";

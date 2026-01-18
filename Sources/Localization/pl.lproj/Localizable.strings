@@ -12,6 +12,8 @@
 "language_pl" = "Polski";
 "language_de" = "Niemiecki";
 "language_fr" = "Francuski";
+"language_es" = "Hiszpański";
+"language_it" = "Włoski";
 
 /* Scan Settings */
 "scan_location" = "Lokalizacja skanowania";
@@ -69,6 +71,9 @@
 "welcome_settings_hint" = "Ścieżkę skanowania maszyn wirtualnych możesz zmienić w Ustawieniach.";
 "welcome_default_path_prefix" = "Domyślna lokalizacja skanowania:";
 "welcome_footer" = "Wybierz maszynę, aby zobaczyć tutaj dodatkowe informacje.";
+"grant_access_title" = "Wymagane uprawnienia";
+"grant_access_message" = "Snapshot Maker potrzebuje stałego dostępu do folderu z maszynami, aby nie pytać o zgodę przy każdym uruchomieniu.";
+"grant_access_button" = "Udziel dostępu";
 
 /* Menu Items */
 "menu_about" = "O programie Snapshot Maker";

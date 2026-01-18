@@ -16,7 +16,21 @@ struct SettingsView: View {
             selectedPath = appState.scanPath
         }
         .sheet(isPresented: $showingFilePicker) {
-            FilePickerView(selectedPath: $selectedPath)
+            FilePickerView(selectedPath: $selectedPath, 
+                         initialPath: AppConfig.defaultScanPath) { url in
+                saveBookmark(for: url)
+            }
+        }
+    }
+    
+    private func saveBookmark(for url: URL) {
+        do {
+            let data = try url.bookmarkData(options: .withSecurityScope,
+                                          includingResourceValuesForKeys: nil,
+                                          relativeTo: nil)
+            appState.scanPathBookmark = data
+        } catch {
+            print("Failed to create bookmark: \(error)")
         }
     }
     
@@ -36,6 +50,13 @@ struct SettingsView: View {
                             showingFilePicker = true
                         }
                     }
+                    
+                    // Grant Access Button for Settings
+                    Button(action: { showingFilePicker = true }) {
+                        Label("grant_access_button".localized, systemImage: "key.fill")
+                    }
+                    .controlSize(.small)
+                     .padding(.top, 4)
                     
                     Button("scan_button".localized) {
                         appState.scanPath = selectedPath
@@ -133,6 +154,8 @@ struct SettingsView: View {
                         Label("language_pl".localized, systemImage: "flag").tag("pl")
                         Label("language_de".localized, systemImage: "flag").tag("de")
                         Label("language_fr".localized, systemImage: "flag").tag("fr")
+                        Label("language_es".localized, systemImage: "flag").tag("es")
+                        Label("language_it".localized, systemImage: "flag").tag("it")
                     }
                     .pickerStyle(.radioGroup)
                 }
@@ -149,6 +172,8 @@ struct SettingsView: View {
 
 struct FilePickerView: NSViewRepresentable {
     @Binding var selectedPath: String
+    var initialPath: String? = nil
+    var onSelect: ((URL) -> Void)?
     @Environment(\.dismiss) var dismiss
     
     func makeNSView(context: Context) -> NSView {
@@ -168,9 +193,19 @@ struct FilePickerView: NSViewRepresentable {
         panel.allowsMultipleSelection = false
         panel.message = "scan_location".localized
         
+        if let initialPath = initialPath, !initialPath.isEmpty {
+            panel.directoryURL = URL(fileURLWithPath: initialPath)
+        } else if !selectedPath.isEmpty {
+            panel.directoryURL = URL(fileURLWithPath: selectedPath)
+        } else {
+            // Default to Home if nothing set
+            panel.directoryURL = URL(fileURLWithPath: NSHomeDirectory())
+        }
+        
         if panel.runModal() == .OK {
             if let url = panel.url {
                 selectedPath = url.path
+                onSelect?(url)
             }
         }
         dismiss()
