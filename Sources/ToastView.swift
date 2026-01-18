@@ -16,25 +16,21 @@ struct ToastModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .overlay(alignment: .top) {
+            .overlay(alignment: .bottom) {
                 if let toast = toast, showToast {
-                    VStack {
-                        HStack {
-                            Image(systemName: toast.type == .success ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                .foregroundColor(toast.type == .success ? .green : .red)
-                            
-                            Text(toast.message)
-                                .font(.body)
-                        }
-                        .padding()
-                        .background(Color(NSColor.controlBackgroundColor))
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                        .padding(.top, 50)
+                    HStack {
+                        Image(systemName: toast.type == .success ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(toast.type == .success ? .green : .red)
                         
-                        Spacer()
+                        Text(toast.message)
+                            .font(.body)
                     }
-                    .transition(.move(edge: . top).combined(with: .opacity))
+                    .padding()
+                    .background(Color(NSColor.controlBackgroundColor))
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
+                    .padding(.bottom, 20)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                     .animation(.easeInOut(duration: 0.3), value: showToast)
                 }
             }

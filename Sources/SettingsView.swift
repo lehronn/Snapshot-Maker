@@ -9,11 +9,27 @@ struct SettingsView: View {
     
     var body: some View {
         TabView {
-            // General Settings
-            Form {
-                Section(header: Text("scan_location".localized)) {
+            generalSettingsTab
+            appearanceSettingsTab
+        }
+        .onAppear {
+            selectedPath = appState.scanPath
+        }
+        .sheet(isPresented: $showingFilePicker) {
+            FilePickerView(selectedPath: $selectedPath)
+        }
+    }
+    
+    private var generalSettingsTab: some View {
+        Form {
+            GroupBox(label: Label("scan_location".localized, systemImage: "folder")) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("scan_path".localized)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    
                     HStack {
-                        TextField("scan_path".localized, text: $selectedPath)
+                        TextField("", text: $selectedPath)
                             .textFieldStyle(.roundedBorder)
                         
                         Button("choose".localized) {
@@ -27,68 +43,107 @@ struct SettingsView: View {
                     }
                     .disabled(selectedPath.isEmpty)
                 }
-                
-                Section(header: Text("qemu_status_label".localized)) {
-                    if appState.missingDependencies {
-                        Text("missing_dependencies_message".localized)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    } else if appState.usingEmbeddedQemu {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("qemu_status_embedded".localized)
-                                .font(.body)
-                                .foregroundColor(.orange)
-                            
-                            Text("qemu_warning_message".localized)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    } else {
-                        Text("qemu_status_system".localized)
-                            .font(.body)
-                            .foregroundColor(.green)
-                    }
-                }
-            }
-            .padding()
-            .frame(width: 500, height: 350)
-            .tabItem {
-                Label("general_settings".localized, systemImage: "gear")
+                .padding(8)
             }
             
-            // Appearance Settings
-            Form {
-                Section(header: Text("appearance_label".localized)) {
-                    Picker("appearance_label".localized, selection: $appAppearance) {
-                        Text("appearance_system".localized).tag("system")
-                        Text("appearance_light".localized).tag("light")
-                        Text("appearance_dark".localized).tag("dark")
+            GroupBox(label: Label("qemu_status_label".localized, systemImage: "terminal")) {
+                VStack(alignment: .leading, spacing: 12) {
+                    if appState.missingDependencies {
+                        Label {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Brak qemu-img!")
+                                    .font(.headline)
+                                    .foregroundColor(.red)
+                                Text("Zainstaluj qemu przez Homebrew: brew install qemu")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.red)
+                        }
+                    } else if appState.usingEmbeddedQemu {
+                        Label {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Używa wbudowanej wersji qemu-img")
+                                    .font(.headline)
+                                    .foregroundColor(.orange)
+                                Text("Dla lepszej kompatybilności zainstaluj najnowszą wersję przez Homebrew: brew install qemu")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.orange)
+                        }
+                    } else {
+                        Label {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Używa systemowej instalacji qemu-img")
+                                    .font(.headline)
+                                    .foregroundColor(.green)
+                                Text("Wszystko jest poprawnie skonfigurowane.")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                        }
+                    }
+                }
+                .padding(8)
+            }
+        }
+        .formStyle(.grouped)
+        .padding(20)
+        .frame(width: 550, height: 400)
+        .tabItem {
+            Label("Ogólne", systemImage: "gear")
+        }
+    }
+    
+    private var appearanceSettingsTab: some View {
+        Form {
+            GroupBox(label: Label("appearance_label".localized, systemImage: "paintbrush")) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Wybierz motyw kolorystyczny aplikacji")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    
+                    Picker("", selection: $appAppearance) {
+                        Label("appearance_system".localized, systemImage: "computermouse").tag("system")
+                        Label("appearance_light".localized, systemImage: "sun.max").tag("light")
+                        Label("appearance_dark".localized, systemImage: "moon").tag("dark")
                     }
                     .pickerStyle(.radioGroup)
                 }
-                
-                Section(header: Text("language_label".localized)) {
-                    Picker("language_label".localized, selection: $selectedLanguage) {
-                        Text("language_system".localized).tag("system")
-                        Text("language_en".localized).tag("en")
-                        Text("language_pl".localized).tag("pl")
-                        Text("language_de".localized).tag("de")
-                        Text("language_fr".localized).tag("fr")
+                .padding(8)
+            }
+            
+            GroupBox(label: Label("language_label".localized, systemImage: "globe")) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Wybierz język interfejsu")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    
+                    Picker("", selection: $selectedLanguage) {
+                        Label("language_system".localized, systemImage: "globe").tag("system")
+                        Label("language_en".localized, systemImage: "flag").tag("en")
+                        Label("language_pl".localized, systemImage: "flag").tag("pl")
+                        Label("language_de".localized, systemImage: "flag").tag("de")
+                        Label("language_fr".localized, systemImage: "flag").tag("fr")
                     }
                     .pickerStyle(.radioGroup)
                 }
-            }
-            .padding()
-            .frame(width: 500, height: 350)
-            .tabItem {
-                Label("appearance_settings".localized, systemImage: "paintbrush")
+                .padding(8)
             }
         }
-        .onAppear {
-            selectedPath = appState.scanPath
-        }
-        .sheet(isPresented: $showingFilePicker) {
-            FilePickerView(selectedPath: $selectedPath)
+        .formStyle(.grouped)
+        .padding(20)
+        .frame(width: 550, height: 400)
+        .tabItem {
+            Label("Wygląd", systemImage: "paintbrush")
         }
     }
 }

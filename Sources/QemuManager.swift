@@ -91,7 +91,7 @@ class QemuManager {
                     // Try to read description from plist
                     if let plistData = try? Data(contentsOf: potentialConfig),
                        let plist = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: Any],
-                       let notes = plist["notes"] as? String, !notes.isEmpty {
+                       let notes = plist["Notes"] as? String, !notes.isEmpty {
                         vmDescription = notes
                     }
                 }
