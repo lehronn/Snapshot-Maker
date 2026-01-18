@@ -1,12 +1,29 @@
 import SwiftUI
 
+enum SnapshotAlertType: Identifiable {
+    case delete(Snapshot)
+    case restore(Snapshot)
+    
+    var id: String {
+        switch self {
+        case .delete(let snap): return "delete_\(snap.id)"
+        case .restore(let snap): return "restore_\(snap.id)"
+        }
+    }
+    
+    var snapshot: Snapshot {
+        switch self {
+        case .delete(let snap), .restore(let snap): return snap
+        }
+    }
+}
+
 struct SnapshotView: View {
     let vm: VirtualMachine
     @State private var snapshots: [Snapshot] = []
     @State private var newSnapshotName: String = ""
     @State private var toast: Toast?
-    @State private var showDeleteConfirmation: Snapshot?
-    @State private var showRestoreConfirmation: Snapshot?
+    @State private var alertType: SnapshotAlertType?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -47,11 +64,11 @@ struct SnapshotView: View {
                             Spacer()
                             
                             Button("restore_snapshot".localized) {
-                                showRestoreConfirmation = snap
+                                alertType = .restore(snap)
                             }
                             
                             Button("delete_snapshot".localized) {
-                                showDeleteConfirmation = snap
+                                alertType = .delete(snap)
                             }
                         }
                     }
@@ -64,76 +81,60 @@ struct SnapshotView: View {
             refreshSnapshots()
         }
         .toast($toast)
-        .alert(item: $showDeleteConfirmation) { snap in
-            Alert(
-                title: Text("delete_snapshot".localized),
-                message: Text(String(format: "delete_confirm_message".localized, snap.tag)),
-                primaryButton: .destructive(Text("delete_snapshot".localized)) {
-                    deleteSnapshot(snap)
-                },
-                secondaryButton: .cancel(Text("cancel".localized))
-            )
-        }
-        .alert(item: $showRestoreConfirmation) { snap in
-            Alert(
-                title: Text("restore_snapshot".localized),
-                message: Text(String(format: "restore_confirm_message".localized, snap.tag)),
-                primaryButton: .default(Text("restore_snapshot".localized)) {
-                    restoreSnapshot(snap)
-                },
-                secondaryButton: .cancel(Text("cancel".localized))
-            )
+        .alert(item: $alertType) { type in
+            switch type {
+            case .delete(let snap):
+                return Alert(
+                    title: Text("delete_snapshot".localized),
+                    message: Text(String(format: "delete_confirm_message".localized, snap.tag)),
+                    primaryButton: .destructive(Text("delete_snapshot".localized)) {
+                        deleteSnapshot(snap)
+                    },
+                    secondaryButton: .cancel(Text("cancel".localized))
+                )
+            case .restore(let snap):
+                return Alert(
+                    title: Text("restore_snapshot".localized),
+                    message: Text(String(format: "restore_confirm_message".localized, snap.tag)),
+                    primaryButton: .default(Text("restore_snapshot".localized)) {
+                        restoreSnapshot(snap)
+                    },
+                    secondaryButton: .cancel(Text("cancel".localized))
+                )
+            }
         }
     }
     
-    /// Refresh the list of snapshots from QEMU
     func refreshSnapshots() {
-        print("🔍 DEBUG: Refreshing snapshots for VM: \(vm.name)")
         snapshots = QemuManager.shared.listSnapshots(vm: vm)
-        print("🔍 DEBUG: Found \(snapshots.count) snapshots")
-        for snapshot in snapshots {
-            print("  - \(snapshot.tag) (\(snapshot.date))")
-        }
     }
     
-    /// Create a new snapshot with the specified name
     func createSnapshot() {
-        print("📸 DEBUG: Creating snapshot '\(newSnapshotName)' for \(vm.name)")
         do {
             try QemuManager.shared.createSnapshot(vm: vm, name: newSnapshotName)
-            print("✅ DEBUG: Snapshot created successfully")
             newSnapshotName = ""
             refreshSnapshots()
             toast = Toast(message: "snapshot_created_success".localized, type: .success)
         } catch {
-            print("❌ DEBUG: Snapshot creation failed: \(error)")
             toast = Toast(message: "snapshot_create_error".localized + "\n\n" + error.localizedDescription, type: .error)
         }
     }
     
-    /// Delete the specified snapshot
     func deleteSnapshot(_ snap: Snapshot) {
-        print("🗑️ DEBUG: Deleting snapshot '\(snap.tag)'")
         do {
             try QemuManager.shared.deleteSnapshot(vm: vm, name: snap.tag)
-            print("✅ DEBUG: Snapshot deleted successfully")
             refreshSnapshots()
             toast = Toast(message: "snapshot_deleted_success".localized, type: .success)
         } catch {
-            print("❌ DEBUG: Snapshot deletion failed: \(error)")
             toast = Toast(message: "snapshot_delete_error".localized + "\n\n" + error.localizedDescription, type: .error)
         }
     }
     
-    /// Restore the VM to the specified snapshot state
     func restoreSnapshot(_ snap: Snapshot) {
-        print("🔄 DEBUG: Restoring snapshot '\(snap.tag)'")
         do {
             try QemuManager.shared.restoreSnapshot(vm: vm, name: snap.tag)
-            print("✅ DEBUG: Snapshot restored successfully")
             toast = Toast(message: "snapshot_restored_success".localized, type: .success)
         } catch {
-            print("❌ DEBUG: Snapshot restoration failed: \(error)")
             toast = Toast(message: "snapshot_restore_error".localized + "\n\n" + error.localizedDescription, type: .error)
         }
     }
