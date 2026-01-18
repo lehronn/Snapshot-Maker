@@ -1,29 +1,10 @@
 import SwiftUI
 
-enum SnapshotAlertType: Identifiable {
-    case delete(Snapshot)
-    case restore(Snapshot)
-    
-    var id: String {
-        switch self {
-        case .delete(let snap): return "delete_\(snap.id)"
-        case .restore(let snap): return "restore_\(snap.id)"
-        }
-    }
-    
-    var snapshot: Snapshot {
-        switch self {
-        case .delete(let snap), .restore(let snap): return snap
-        }
-    }
-}
-
 struct SnapshotView: View {
     let vm: VirtualMachine
     @State private var snapshots: [Snapshot] = []
     @State private var newSnapshotName: String = ""
     @State private var toast: Toast?
-    @State private var alertType: SnapshotAlertType?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,11 +45,11 @@ struct SnapshotView: View {
                             Spacer()
                             
                             Button("restore_snapshot".localized) {
-                                alertType = .restore(snap)
+                                restoreSnapshot(snap)
                             }
                             
                             Button("delete_snapshot".localized) {
-                                alertType = .delete(snap)
+                                deleteSnapshot(snap)
                             }
                         }
                     }
@@ -81,28 +62,6 @@ struct SnapshotView: View {
             refreshSnapshots()
         }
         .toast($toast)
-        .alert(item: $alertType) { type in
-            switch type {
-            case .delete(let snap):
-                return Alert(
-                    title: Text("delete_snapshot".localized),
-                    message: Text(String(format: "delete_confirm_message".localized, snap.tag)),
-                    primaryButton: .destructive(Text("delete_snapshot".localized)) {
-                        deleteSnapshot(snap)
-                    },
-                    secondaryButton: .cancel(Text("cancel".localized))
-                )
-            case .restore(let snap):
-                return Alert(
-                    title: Text("restore_snapshot".localized),
-                    message: Text(String(format: "restore_confirm_message".localized, snap.tag)),
-                    primaryButton: .default(Text("restore_snapshot".localized)) {
-                        restoreSnapshot(snap)
-                    },
-                    secondaryButton: .cancel(Text("cancel".localized))
-                )
-            }
-        }
     }
     
     func refreshSnapshots() {
