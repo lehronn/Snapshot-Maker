@@ -102,20 +102,23 @@ struct VMDetailView: View {
                     }
                     .buttonStyle(BorderlessButtonStyle())
                 }
-                
-                // Show VM description/notes if available
-                if let desc = vm.vmDescription, !desc.isEmpty {
-                    Text("Notatki: \(desc)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.top, 2)
-                }
             }
             .padding()
             
-            // Show disk list if VM has multiple disks
+            // Warning about not using snapshots on running VMs
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.red)
+                    Text("warning_vm_running".localized)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+                .background(Color.red.opacity(0.1))
+                .cornerRadius(8)
             }
-            .padding()
+            .padding(.horizontal)
             
             // Show disk list if VM has multiple disks
             if let disks = vm.disks, !disks.isEmpty {

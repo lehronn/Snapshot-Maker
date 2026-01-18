@@ -8,6 +8,7 @@ struct VirtualMachine: Identifiable, Hashable {
     let size: String 
     var disks: [VirtualMachine]? // For UTM packages containing multiple disks
     var configPath: String? // Path to config.plist if available
+    var vmDescription: String? // Description/notes from config.plist
     
     // Derived property for display
     var displayName: String {

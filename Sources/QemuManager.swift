@@ -82,11 +82,18 @@ class QemuManager {
                 // Create UTM entry with disks as children
                 let utmSize = getFileSize(url: fileURL)
                 
-                // Check for config.plist
+                // Check for config.plist and read description
                 var configPath: String? = nil
+                var vmDescription: String? = nil
                 let potentialConfig = fileURL.appendingPathComponent("config.plist")
                 if fileManager.fileExists(atPath: potentialConfig.path) {
                     configPath = potentialConfig.path
+                    // Try to read description from plist
+                    if let plistData = try? Data(contentsOf: potentialConfig),
+                       let plist = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: Any],
+                       let notes = plist["notes"] as? String, !notes.isEmpty {
+                        vmDescription = notes
+                    }
                 }
                 
                 vms.append(VirtualMachine(
@@ -95,7 +102,8 @@ class QemuManager {
                     format: "utm",
                     size: utmSize,
                     disks: disks.isEmpty ? nil : disks,
-                    configPath: configPath
+                    configPath: configPath,
+                    vmDescription: vmDescription
                 ))
                 
                 // Skip descending into .utm since we already processed it
@@ -110,7 +118,8 @@ class QemuManager {
                     format: "qcow2",
                     size: size,
                     disks: nil,
-                    configPath: nil
+                    configPath: nil,
+                    vmDescription: nil
                 ))
             }
         }
