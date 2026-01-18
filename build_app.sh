@@ -78,8 +78,8 @@ chmod +x ${APP_NAME}.app/Contents/MacOS/${APP_NAME}
 
 # Copy resources (localization files)
 echo "   Copying resources..."
-if [ -d ".build/arm64-apple-macosx/release/${APP_NAME}.resources" ]; then
-    cp -r .build/arm64-apple-macosx/release/${APP_NAME}.resources/* ${APP_NAME}.app/Contents/Resources/
+if [ -d ".build/arm64-apple-macosx/release/SnapshotMaker_SnapshotMaker.bundle" ]; then
+    cp -r .build/arm64-apple-macosx/release/SnapshotMaker_SnapshotMaker.bundle ${APP_NAME}.app/Contents/Resources/
 fi
 
 # Copy app icon

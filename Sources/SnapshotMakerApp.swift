@@ -13,8 +13,6 @@ struct SnapshotMakerApp: App {
                 .preferredColorScheme(appearance(for: appAppearance))
                 .id(selectedLanguage) // Force redraw on language change
                 .onAppear {
-                    // Apply language preference
-                    applyLanguagePreference()
                     // Perform initial scan
                     appState.scan()
                 }
@@ -45,12 +43,6 @@ struct SnapshotMakerApp: App {
         case "light": return .light
         case "dark": return .dark
         default: return nil
-        }
-    }
-    
-    private func applyLanguagePreference() {
-        if selectedLanguage != "system" {
-            UserDefaults.standard.set([selectedLanguage], forKey: "AppleLanguages")
         }
     }
     
