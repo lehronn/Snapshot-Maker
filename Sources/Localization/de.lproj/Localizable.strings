@@ -1,0 +1,91 @@
+/* Application Name */
+"app_name" = "Snapshot Maker";
+
+/* UI Labels */
+"appearance_label" = "Erscheinungsbild";
+"appearance_system" = "System";
+"appearance_light" = "Hell";
+"appearance_dark" = "Dunkel";
+"language_label" = "Sprache";
+"language_system" = "Systemstandard";
+"language_en" = "Englisch";
+"language_pl" = "Polnisch";
+"language_de" = "Deutsch";
+"language_fr" = "Französisch";
+
+/* Scan Settings */
+"scan_location" = "Scan-Speicherort";
+"scan_button" = "Scannen";
+"scan_path" = "Scan-Pfad";
+"choose" = "Auswählen...";
+
+/* VM List */
+"vm_list_title" = "Virtuelle Maschinen";
+"select_vm" = "Virtuelle Maschine auswählen";
+"path_label" = "Pfad";
+"disks_label" = "Festplatten";
+"open_in_finder" = "Im Finder öffnen";
+
+/* Snapshots */
+"snapshots" = "Snapshots";
+"create_snapshot" = "Snapshot erstellen";
+"delete_snapshot" = "Löschen";
+"restore_snapshot" = "Wiederherstellen";
+"snapshot_name_placeholder" = "Snapshot-Name";
+"created_at" = "Erstellt";
+"actions" = "Aktionen";
+
+/* Messages */
+"error_title" = "Fehler";
+"success_title" = "Erfolg";
+"ok_button" = "OK";
+"ok" = "OK";
+"cancel" = "Abbrechen";
+
+/* Snapshot Operations */
+"snapshot_created_success" = "Snapshot erfolgreich erstellt";
+"snapshot_deleted_success" = "Snapshot erfolgreich gelöscht";
+"snapshot_restored_success" = "Snapshot erfolgreich wiederhergestellt";
+"snapshot_create_error" = "Snapshot konnte nicht erstellt werden";
+"snapshot_delete_error" = "Snapshot konnte nicht gelöscht werden";
+"snapshot_restore_error" = "Snapshot konnte nicht wiederhergestellt werden";
+
+/* Dependencies */
+"missing_dependencies_title" = "qemu-img fehlt";
+"missing_dependencies_message" = "qemu-img ist nicht installiert. Bitte installieren Sie QEMU mit Homebrew:\n\nbrew install qemu\n\nOder die Anwendung wird die eingebettete Binärdatei verwenden (möglicherweise veraltet).";
+"qemu_status_label" = "qemu-img Status";
+"qemu_status_system" = "Verwendet System-Binärdatei";
+"qemu_status_embedded" = "Verwendet eingebettete Binärdatei";
+"qemu_warning_message" = "⚠️ Sie verwenden die eingebettete qemu-img-Binärdatei. Für beste Ergebnisse installieren Sie qemu über Homebrew:\n\nbrew install qemu";
+
+/* Welcome Screen */
+"welcome_title" = "Willkommen bei Snapshot Maker";
+"welcome_message" = "Wählen Sie eine virtuelle Maschine aus der Seitenleiste aus, um Details anzuzeigen und Snapshots zu verwalten.";
+"welcome_settings_hint" = "Sie können den VM-Scan-Pfad in den Einstellungen konfigurieren.";
+"welcome_default_path_prefix" = "Standard-Scan-Speicherort:";
+"welcome_footer" = "Zusätzliche Informationen werden hier angezeigt, nachdem Sie eine VM ausgewählt haben.";
+
+/* Menu Items */
+"menu_about" = "Über Snapshot Maker";
+"menu_documentation" = "Dokumentation";
+
+/* About Window */
+"about_version" = "Version";
+"about_author" = "Autor";
+"about_license_button" = "Lizenz anzeigen";
+"about_disclaimer" = "Diese Software ist kostenlos und Open-Source, wird 'wie besehen' ohne jegliche Garantie zur Verfügung gestellt, unter der MIT-Lizenz.\n\nMit KI-Unterstützung erstellt. Nicht für den produktiven Einsatz vorgesehen. Der Autor haftet nicht für Fehler.";
+"license_title" = "MIT-Lizenz";
+
+/* Config Viewer */
+"view_config" = "Konfiguration anzeigen";
+"config_title" = "Konfiguration";
+"loading_config" = "Konfiguration wird geladen...";
+"export_config" = "In Datei exportieren";
+"config_export_success" = "Konfiguration erfolgreich exportiert.";
+
+/* Settings */
+"general_settings" = "Allgemein";
+"appearance_settings" = "Erscheinungsbild";
+
+/* Warnings */
+"warning_vm_running" = "⚠️ WARNUNG: Erstellen, Wiederherstellen oder Löschen Sie niemals Snapshots, während eine VM läuft! Dies kann zu schwerwiegenden Datenbeschädigungen führen.";

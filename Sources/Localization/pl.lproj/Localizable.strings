@@ -1,0 +1,91 @@
+/* Application Name */
+"app_name" = "Snapshot Maker";
+
+/* UI Labels */
+"appearance_label" = "Wygląd";
+"appearance_system" = "Systemowy";
+"appearance_light" = "Jasny";
+"appearance_dark" = "Ciemny";
+"language_label" = "Język";
+"language_system" = "Domyślny systemowy";
+"language_en" = "Angielski";
+"language_pl" = "Polski";
+"language_de" = "Niemiecki";
+"language_fr" = "Francuski";
+
+/* Scan Settings */
+"scan_location" = "Lokalizacja skanowania";
+"scan_button" = "Skanuj";
+"scan_path" = "Ścieżka skanowania";
+"choose" = "Wybierz...";
+
+/* VM List */
+"vm_list_title" = "Maszyny wirtualne";
+"select_vm" = "Wybierz maszynę wirtualną";
+"path_label" = "Ścieżka";
+"disks_label" = "Dyski";
+"open_in_finder" = "Otwórz w Finderze";
+
+/* Snapshots */
+"snapshots" = "Migawki";
+"create_snapshot" = "Utwórz migawkę";
+"delete_snapshot" = "Usuń";
+"restore_snapshot" = "Przywróć";
+"snapshot_name_placeholder" = "Nazwa migawki";
+"created_at" = "Utworzono";
+"actions" = "Akcje";
+
+/* Messages */
+"error_title" = "Błąd";
+"success_title" = "Sukces";
+"ok_button" = "OK";
+"ok" = "OK";
+"cancel" = "Anuluj";
+
+/* Snapshot Operations */
+"snapshot_created_success" = "Migawka została utworzona";
+"snapshot_deleted_success" = "Migawka została usunięta";
+"snapshot_restored_success" = "Migawka została przywrócona";
+"snapshot_create_error" = "Nie udało się utworzyć migawki";
+"snapshot_delete_error" = "Nie udało się usunąć migawki";
+"snapshot_restore_error" = "Nie udało się przywrócić migawki";
+
+/* Dependencies */
+"missing_dependencies_title" = "Brak qemu-img";
+"missing_dependencies_message" = "qemu-img nie jest zainstalowany. Zainstaluj QEMU używając Homebrew:\n\nbrew install qemu\n\nLub aplikacja użyje wbudowanej binarki (może być nieaktualna).";
+"qemu_status_label" = "Status qemu-img";
+"qemu_status_system" = "Używa systemowej binarki";
+"qemu_status_embedded" = "Używa wbudowanej binarki";
+"qemu_warning_message" = "⚠️ Używasz wbudowanej binarki qemu-img. Dla najlepszych rezultatów, zainstaluj qemu przez Homebrew:\n\nbrew install qemu";
+
+/* Welcome Screen */
+"welcome_title" = "Witamy w Snapshot Maker";
+"welcome_message" = "Wybierz maszynę wirtualną z paska bocznego, aby zobaczyć szczegóły i zarządzać migawkami.";
+"welcome_settings_hint" = "Ścieżkę skanowania maszyn wirtualnych możesz zmienić w Ustawieniach.";
+"welcome_default_path_prefix" = "Domyślna lokalizacja skanowania:";
+"welcome_footer" = "Wybierz maszynę, aby zobaczyć tutaj dodatkowe informacje.";
+
+/* Menu Items */
+"menu_about" = "O programie Snapshot Maker";
+"menu_documentation" = "Dokumentacja";
+
+/* About Window */
+"about_version" = "Wersja";
+"about_author" = "Autor";
+"about_license_button" = "Zobacz Licencję";
+"about_disclaimer" = "To oprogramowanie jest darmowe i otwartoźródłowe, dostarczane 'tak jak jest' bez żadnej gwarancji, na licencji MIT.\n\nStworzono przy pomocy AI. Program nie jest przeznaczony do użytku produkcyjnego. Autor nie odpowiada za błędy.";
+"license_title" = "Licencja MIT";
+
+/* Config Viewer */
+"view_config" = "Pokaż Konfigurację";
+"config_title" = "Konfiguracja";
+"loading_config" = "Wczytywanie konfiguracji...";
+"export_config" = "Eksportuj do Pliku";
+"config_export_success" = "Konfiguracja wyeksportowana pomyślnie.";
+
+/* Settings */
+"general_settings" = "Ogólne";
+"appearance_settings" = "Wygląd";
+
+/* Warnings */
+"warning_vm_running" = "⚠️ UWAGA: Nigdy nie twórz, nie przywracaj i nie usuwaj migawek gdy maszyna wirtualna jest uruchomiona! Może to spowodować poważne uszkodzenie danych.";

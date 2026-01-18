@@ -1,0 +1,91 @@
+/* Application Name */
+"app_name" = "Snapshot Maker";
+
+/* UI Labels */
+"appearance_label" = "Appearance";
+"appearance_system" = "System";
+"appearance_light" = "Light";
+"appearance_dark" = "Dark";
+"language_label" = "Language";
+"language_system" = "System Default";
+"language_en" = "English";
+"language_pl" = "Polish";
+"language_de" = "German";
+"language_fr" = "French";
+
+/* Scan Settings */
+"scan_location" = "Scan Location";
+"scan_button" = "Scan";
+"scan_path" = "Scan Path";
+"choose" = "Choose...";
+
+/* VM List */
+"vm_list_title" = "Virtual Machines";
+"select_vm" = "Select a Virtual Machine";
+"path_label" = "Path";
+"disks_label" = "Disks";
+"open_in_finder" = "Open in Finder";
+
+/* Snapshots */
+"snapshots" = "Snapshots";
+"create_snapshot" = "Create Snapshot";
+"delete_snapshot" = "Delete";
+"restore_snapshot" = "Restore";
+"snapshot_name_placeholder" = "Snapshot Name";
+"created_at" = "Created";
+"actions" = "Actions";
+
+/* Messages */
+"error_title" = "Error";
+"success_title" = "Success";
+"ok_button" = "OK";
+"ok" = "OK";
+"cancel" = "Cancel";
+
+/* Snapshot Operations */
+"snapshot_created_success" = "Snapshot created successfully";
+"snapshot_deleted_success" = "Snapshot deleted successfully";
+"snapshot_restored_success" = "Snapshot restored successfully";
+"snapshot_create_error" = "Failed to create snapshot";
+"snapshot_delete_error" = "Failed to delete snapshot";
+"snapshot_restore_error" = "Failed to restore snapshot";
+
+/* Dependencies */
+"missing_dependencies_title" = "Missing qemu-img";
+"missing_dependencies_message" = "qemu-img is not installed. Please install QEMU using Homebrew:\n\nbrew install qemu\n\nOr the application will use the embedded binary (may be outdated).";
+"qemu_status_label" = "qemu-img Status";
+"qemu_status_system" = "Using System Binary";
+"qemu_status_embedded" = "Using Embedded Binary";
+"qemu_warning_message" = "⚠️ You are using the embedded qemu-img binary. For best results, install qemu via Homebrew:\n\nbrew install qemu";
+
+/* Welcome Screen */
+"welcome_title" = "Welcome to Snapshot Maker";
+"welcome_message" = "Select a virtual machine from the sidebar to view details and manage snapshots.";
+"welcome_settings_hint" = "You can configure the VM scan path in Settings.";
+"welcome_default_path_prefix" = "Default scan location:";
+"welcome_footer" = "Additional information will appear here after selecting a VM.";
+
+/* Menu Items */
+"menu_about" = "About Snapshot Maker";
+"menu_documentation" = "Documentation";
+
+/* About Window */
+"about_version" = "Version";
+"about_author" = "Author";
+"about_license_button" = "View License";
+"about_disclaimer" = "This software is free and open-source, provided 'as-is' without any warranty, under the MIT License.\n\nCreated with AI assistance. Not intended for production use. The author is not responsible for any errors.";
+"license_title" = "MIT License";
+
+/* Config Viewer */
+"view_config" = "View Configuration";
+"config_title" = "Configuration";
+"loading_config" = "Loading configuration...";
+"export_config" = "Export to File";
+"config_export_success" = "Configuration exported successfully.";
+
+/* Settings */
+"general_settings" = "General";
+"appearance_settings" = "Appearance";
+
+/* Warnings */
+"warning_vm_running" = "⚠️ WARNING: Never create, restore, or delete snapshots while a VM is running! This may cause severe data corruption.";
