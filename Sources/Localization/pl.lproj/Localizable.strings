@@ -28,6 +28,7 @@
 
 /* Snapshots */
 "snapshots" = "Migawki";
+"no_snapshots" = "Brak migawek. Utwórz nową migawkę używając formularza powyżej.";
 "create_snapshot" = "Utwórz migawkę";
 "delete_snapshot" = "Usuń";
 "restore_snapshot" = "Przywróć";

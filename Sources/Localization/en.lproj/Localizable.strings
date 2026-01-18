@@ -28,6 +28,7 @@
 
 /* Snapshots */
 "snapshots" = "Snapshots";
+"no_snapshots" = "No snapshots found. Create a new snapshot using the form above.";
 "create_snapshot" = "Create Snapshot";
 "delete_snapshot" = "Delete";
 "restore_snapshot" = "Restore";

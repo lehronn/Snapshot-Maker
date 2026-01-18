@@ -22,26 +22,41 @@ struct SnapshotView: View {
             }
             .padding(.bottom)
             
-            List {
-                ForEach(snapshots) { snap in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(snap.tag).font(.body)
-                            Text("\("created_at".localized): \(snap.date)")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        Spacer()
-                        
-                        Button("restore_snapshot".localized) {
-                            showRestoreConfirmation = snap
-                        }
-                        
-                        Button("delete_snapshot".localized) {
-                            showDeleteConfirmation = snap
+            // Snapshots list or empty state
+            if snapshots.isEmpty {
+                VStack {
+                    Spacer()
+                    Text("no_snapshots".localized)
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    Spacer()
+                }
+                .frame(minHeight: 150)
+            } else {
+                List {
+                    ForEach(snapshots) { snap in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(snap.tag).font(.body)
+                                Text("\("created_at".localized): \(snap.date)")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            
+                            Button("restore_snapshot".localized) {
+                                showRestoreConfirmation = snap
+                            }
+                            
+                            Button("delete_snapshot".localized) {
+                                showDeleteConfirmation = snap
+                            }
                         }
                     }
                 }
+                .frame(minHeight: 200)
             }
         }
         .padding()
@@ -73,17 +88,25 @@ struct SnapshotView: View {
     
     /// Refresh the list of snapshots from QEMU
     func refreshSnapshots() {
+        print("🔍 DEBUG: Refreshing snapshots for VM: \(vm.name)")
         snapshots = QemuManager.shared.listSnapshots(vm: vm)
+        print("🔍 DEBUG: Found \(snapshots.count) snapshots")
+        for snapshot in snapshots {
+            print("  - \(snapshot.tag) (\(snapshot.date))")
+        }
     }
     
     /// Create a new snapshot with the specified name
     func createSnapshot() {
+        print("📸 DEBUG: Creating snapshot '\(newSnapshotName)' for \(vm.name)")
         do {
             try QemuManager.shared.createSnapshot(vm: vm, name: newSnapshotName)
+            print("✅ DEBUG: Snapshot created successfully")
             newSnapshotName = ""
             refreshSnapshots()
             toast = Toast(message: "snapshot_created_success".localized, type: .success)
         } catch {
+            print("❌ DEBUG: Snapshot creation failed: \(error)")
             toast = Toast(message: "snapshot_create_error".localized + "\n\n" + error.localizedDescription, type: .error)
         }
     }
