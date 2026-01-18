@@ -89,3 +89,7 @@
 
 /* Warnings */
 "warning_vm_running" = "⚠️ WARNUNG: Erstellen, Wiederherstellen oder Löschen Sie niemals Snapshots, während eine VM läuft! Dies kann zu schwerwiegenden Datenbeschädigungen führen.";
+"delete_confirm_title" = "Snapshot löschen";
+"delete_confirm_message" = "Möchten Sie den Snapshot '%@' wirklich löschen?";
+"restore_confirm_title" = "Snapshot wiederherstellen";
+"restore_confirm_message" = "Möchten Sie den Snapshot '%@' wirklich wiederherstellen? Dadurch wird die Festplatte auf diesen Zustand zurückgesetzt.";

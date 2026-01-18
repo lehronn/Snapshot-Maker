@@ -90,3 +90,7 @@
 
 /* Warnings */
 "warning_vm_running" = "⚠️ WARNING: Never create, restore, or delete snapshots while a VM is running! This may cause severe data corruption.";
+"delete_confirm_title" = "Delete Snapshot";
+"delete_confirm_message" = "Are you sure you want to delete snapshot '%@'?";
+"restore_confirm_title" = "Restore Snapshot";
+"restore_confirm_message" = "Are you sure you want to restore to snapshot '%@'? This will revert the disk to this state.";

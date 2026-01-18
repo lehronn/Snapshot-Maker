@@ -35,6 +35,10 @@
 "snapshot_name_placeholder" = "Nazwa migawki";
 "created_at" = "Utworzono";
 "actions" = "Akcje";
+"delete_confirm_title" = "Usuń migawkę";
+"delete_confirm_message" = "Czy na pewno chcesz usunąć migawkę '%@'?";
+"restore_confirm_title" = "Przywróć migawkę";
+"restore_confirm_message" = "Czy na pewno chcesz przywrócić migawkę '%@'? To przywróci dysk do tego stanu.";
 
 /* Messages */
 "error_title" = "Błąd";

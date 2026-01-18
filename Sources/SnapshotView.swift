@@ -67,21 +67,21 @@ struct SnapshotView: View {
         .alert(item: $showDeleteConfirmation) { snap in
             Alert(
                 title: Text("delete_snapshot".localized),
-                message: Text("Are you sure you want to delete snapshot '\(snap.tag)'?"),
+                message: Text(String(format: "delete_confirm_message".localized, snap.tag)),
                 primaryButton: .destructive(Text("delete_snapshot".localized)) {
                     deleteSnapshot(snap)
                 },
-                secondaryButton: .cancel()
+                secondaryButton: .cancel(Text("cancel".localized))
             )
         }
         .alert(item: $showRestoreConfirmation) { snap in
             Alert(
                 title: Text("restore_snapshot".localized),
-                message: Text("Are you sure you want to restore to snapshot '\(snap.tag)'? This will revert the disk to this state."),
+                message: Text(String(format: "restore_confirm_message".localized, snap.tag)),
                 primaryButton: .default(Text("restore_snapshot".localized)) {
                     restoreSnapshot(snap)
                 },
-                secondaryButton: .cancel()
+                secondaryButton: .cancel(Text("cancel".localized))
             )
         }
     }
@@ -113,21 +113,27 @@ struct SnapshotView: View {
     
     /// Delete the specified snapshot
     func deleteSnapshot(_ snap: Snapshot) {
+        print("🗑️ DEBUG: Deleting snapshot '\(snap.tag)'")
         do {
             try QemuManager.shared.deleteSnapshot(vm: vm, name: snap.tag)
+            print("✅ DEBUG: Snapshot deleted successfully")
             refreshSnapshots()
             toast = Toast(message: "snapshot_deleted_success".localized, type: .success)
         } catch {
+            print("❌ DEBUG: Snapshot deletion failed: \(error)")
             toast = Toast(message: "snapshot_delete_error".localized + "\n\n" + error.localizedDescription, type: .error)
         }
     }
     
     /// Restore the VM to the specified snapshot state
     func restoreSnapshot(_ snap: Snapshot) {
+        print("🔄 DEBUG: Restoring snapshot '\(snap.tag)'")
         do {
             try QemuManager.shared.restoreSnapshot(vm: vm, name: snap.tag)
+            print("✅ DEBUG: Snapshot restored successfully")
             toast = Toast(message: "snapshot_restored_success".localized, type: .success)
         } catch {
+            print("❌ DEBUG: Snapshot restoration failed: \(error)")
             toast = Toast(message: "snapshot_restore_error".localized + "\n\n" + error.localizedDescription, type: .error)
         }
     }

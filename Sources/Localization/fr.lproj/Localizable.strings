@@ -89,3 +89,7 @@
 
 /* Warnings */
 "warning_vm_running" = "⚠️ AVERTISSEMENT: Ne créez, ne restaurez ou ne supprimez jamais d'instantanés pendant qu'une VM est en cours d'exécution! Cela peut causer une corruption grave des données.";
+"delete_confirm_title" = "Supprimer le snapshot";
+"delete_confirm_message" = "Êtes-vous sûr de vouloir supprimer le snapshot '%@'?";
+"restore_confirm_title" = "Restaurer le snapshot";
+"restore_confirm_message" = "Êtes-vous sûr de vouloir restaurer le snapshot '%@'? Cela ramènera le disque à cet état.";
