@@ -94,3 +94,28 @@
 
 /* Warnings */
 "warning_vm_running" = "⚠️ UWAGA: Nigdy nie twórz, nie przywracaj i nie usuwaj migawek gdy maszyna wirtualna jest uruchomiona! Może to spowodować poważne uszkodzenie danych.";
+
+/* Settings Descriptions */
+"settings_scan_desc" = "Ścieżka skanowania";
+"settings_qemu_missing" = "Brak qemu-img!";
+"settings_qemu_missing_desc" = "Zainstaluj qemu przez Homebrew: brew install qemu";
+"settings_qemu_embedded" = "Używa wbudowanej wersji qemu-img";
+"settings_qemu_embedded_desc" = "Dla lepszej kompatybilności zainstaluj najnowszą wersję przez Homebrew: brew install qemu";
+"settings_qemu_system" = "Używa systemowej instalacji qemu-img";
+"settings_qemu_system_desc" = "Wszystko jest poprawnie skonfigurowane.";
+"settings_appearance_desc" = "Wybierz motyw kolorystyczny aplikacji";
+"settings_language_desc" = "Wybierz język interfejsu";
+"settings_tab_general" = "Ogólne";
+"settings_tab_appearance" = "Wygląd";
+
+/* Settings & Alerts */
+"settings_general_tab" = "Ogólne";
+"settings_appearance_tab" = "Wygląd";
+"settings_theme_label" = "Wybierz motyw kolorystyczny aplikacji";
+"settings_language_label" = "Wybierz język interfejsu";
+"qemu_status_missing_title" = "Brak qemu-img!";
+"qemu_status_missing_desc" = "Zainstaluj qemu przez Homebrew: brew install qemu";
+"qemu_status_embedded_title" = "Używa wbudowanej wersji qemu-img";
+"qemu_status_embedded_desc" = "Dla lepszej kompatybilności zainstaluj najnowszą wersję przez Homebrew: brew install qemu.";
+"qemu_status_system_title" = "Używa systemowej instalacji qemu-img";
+"qemu_status_system_desc" = "Wszystko jest poprawnie skonfigurowane.";

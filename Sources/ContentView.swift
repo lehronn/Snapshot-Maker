@@ -10,6 +10,7 @@ struct ContentView: View {
         } detail: {
             if let vm = appState.selectedVM {
                 VMDetailView(vm: vm, appState: appState)
+                    .id(vm.id)
             } else {
                 WelcomeView()
             }

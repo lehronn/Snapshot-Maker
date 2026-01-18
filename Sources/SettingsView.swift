@@ -51,10 +51,10 @@ struct SettingsView: View {
                     if appState.missingDependencies {
                         Label {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Brak qemu-img!")
+                                Text("qemu_status_missing_title".localized)
                                     .font(.headline)
                                     .foregroundColor(.red)
-                                Text("Zainstaluj qemu przez Homebrew: brew install qemu")
+                                Text("qemu_status_missing_desc".localized)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -65,10 +65,10 @@ struct SettingsView: View {
                     } else if appState.usingEmbeddedQemu {
                         Label {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Używa wbudowanej wersji qemu-img")
+                                Text("qemu_status_embedded_title".localized)
                                     .font(.headline)
                                     .foregroundColor(.orange)
-                                Text("Dla lepszej kompatybilności zainstaluj najnowszą wersję przez Homebrew: brew install qemu")
+                                Text("qemu_status_embedded_desc".localized)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -79,10 +79,10 @@ struct SettingsView: View {
                     } else {
                         Label {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Używa systemowej instalacji qemu-img")
+                                Text("qemu_status_system_title".localized)
                                     .font(.headline)
                                     .foregroundColor(.green)
-                                Text("Wszystko jest poprawnie skonfigurowane.")
+                                Text("qemu_status_system_desc".localized)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -99,7 +99,7 @@ struct SettingsView: View {
         .padding(20)
         .frame(width: 550, height: 400)
         .tabItem {
-            Label("Ogólne", systemImage: "gear")
+            Label("settings_tab_general".localized, systemImage: "gear")
         }
     }
     
@@ -107,7 +107,7 @@ struct SettingsView: View {
         Form {
             GroupBox(label: Label("appearance_label".localized, systemImage: "paintbrush")) {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Wybierz motyw kolorystyczny aplikacji")
+                    Text("settings_appearance_desc".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -123,7 +123,7 @@ struct SettingsView: View {
             
             GroupBox(label: Label("language_label".localized, systemImage: "globe")) {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Wybierz język interfejsu")
+                    Text("settings_language_desc".localized)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -143,10 +143,9 @@ struct SettingsView: View {
         .padding(20)
         .frame(width: 550, height: 400)
         .tabItem {
-            Label("Wygląd", systemImage: "paintbrush")
+            Label("settings_tab_appearance".localized, systemImage: "paintbrush")
         }
-    }
-}
+    }}
 
 struct FilePickerView: NSViewRepresentable {
     @Binding var selectedPath: String

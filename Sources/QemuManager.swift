@@ -211,19 +211,31 @@ class QemuManager {
         var snapshots: [Snapshot] = []
         let lines = output.components(separatedBy: .newlines)
         
+        // Regex to match the standard qemu-img snapshot list format
+        // Example: 1       tag_name      100M 2023-10-27 12:34:56   00:00:00
+        // We look for the Date and Time pattern: YYYY-MM-DD HH:MM:SS
+        let datePattern = #"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"#
+        
         for line in lines {
             let parts = line.trimmingCharacters(in: .whitespaces).components(separatedBy: .whitespaces).filter { !$0.isEmpty }
             
-            // Expected format: ID TAG VM-SIZE DATE TIME
-            if parts.count >= 5 {
-                // Check if first column is a digit (snapshot ID)
-                if let _ = Int(parts[0]) {
-                     let id = parts[0]
-                     let tag = parts[1]
-                     let size = parts[2]
-                     let dateCode = parts[3] + " " + parts[4]
-                     snapshots.append(Snapshot(id: id, tag: tag, date: dateCode, vmSize: size))
+            // Basic validation: must have ID, TAG, SIZE at minimum
+            if parts.count >= 3, let _ = Int(parts[0]) {
+                let id = parts[0]
+                let tag = parts[1]
+                let size = parts[2]
+                
+                // Try to find the date string in the original line using Regex
+                // This is safer than array indices because VM Size column might vary in position or spacing
+                var dateCode = "Unknown Date"
+                if let range = line.range(of: datePattern, options: .regularExpression) {
+                    dateCode = String(line[range])
+                } else if parts.count >= 5 {
+                     // Fallback to old method if Regex fails but we have enough columns
+                     dateCode = parts[3] + " " + parts[4]
                 }
+                
+                snapshots.append(Snapshot(id: id, tag: tag, date: dateCode, vmSize: size))
             }
         }
         return snapshots

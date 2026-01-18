@@ -93,3 +93,28 @@
 "delete_confirm_message" = "Möchten Sie den Snapshot '%@' wirklich löschen?";
 "restore_confirm_title" = "Snapshot wiederherstellen";
 "restore_confirm_message" = "Möchten Sie den Snapshot '%@' wirklich wiederherstellen? Dadurch wird die Festplatte auf diesen Zustand zurückgesetzt.";
+
+/* Settings Descriptions */
+"settings_scan_desc" = "Scan-Pfad";
+"settings_qemu_missing" = "qemu-img fehlt!";
+"settings_qemu_missing_desc" = "Installieren Sie qemu über Homebrew: brew install qemu";
+"settings_qemu_embedded" = "Verwendet eingebettete Version von qemu-img";
+"settings_qemu_embedded_desc" = "Für bessere Kompatibilität installieren Sie die neueste Version über Homebrew: brew install qemu";
+"settings_qemu_system" = "Verwendet Systeminstallation von qemu-img";
+"settings_qemu_system_desc" = "Alles ist korrekt konfiguriert.";
+"settings_appearance_desc" = "Wählen Sie das Farbschema der Anwendung";
+"settings_language_desc" = "Wählen Sie die Sprache der Benutzeroberfläche";
+"settings_tab_general" = "Allgemein";
+"settings_tab_appearance" = "Erscheinungsbild";
+
+/* Settings & Alerts */
+"settings_general_tab" = "Allgemein";
+"settings_appearance_tab" = "Erscheinungsbild";
+"settings_theme_label" = "Wählen Sie das Farbschema der Anwendung";
+"settings_language_label" = "Wählen Sie die Sprache der Benutzeroberfläche";
+"qemu_status_missing_title" = "qemu-img fehlt!";
+"qemu_status_missing_desc" = "Installieren Sie qemu über Homebrew: brew install qemu";
+"qemu_status_embedded_title" = "Verwendet eingebettete Version von qemu-img";
+"qemu_status_embedded_desc" = "Für bessere Kompatibilität installieren Sie die neueste Version über Homebrew: brew install qemu.";
+"qemu_status_system_title" = "Verwendet Systeminstallation von qemu-img";
+"qemu_status_system_desc" = "Alles ist korrekt konfiguriert.";
