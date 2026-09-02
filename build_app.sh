@@ -128,6 +128,11 @@ if [ -f "Resources/qemu-img" ]; then
     echo "   Embedding qemu-img binary..."
     cp Resources/qemu-img ${APP_NAME}.app/Contents/MacOS/qemu-img
     chmod +x ${APP_NAME}.app/Contents/MacOS/qemu-img
+    
+    # Sign the embedded binary explicitly with default entitlements/adhoc
+    echo "   🔐 Signing embedded qemu-img..."
+    codesign --force --sign - ${APP_NAME}.app/Contents/MacOS/qemu-img
+    
     echo -e "${YELLOW}   ⚠️  Using embedded qemu-img${NC}"
 else
     echo -e "${YELLOW}   ⚠️  No embedded qemu-img found (will use system binary if available)${NC}"
